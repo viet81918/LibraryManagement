@@ -1,6 +1,6 @@
 ﻿using BusinessObject;
 
-namespace GalleryRepositories
+namespace Repository
 {
     public class BookRepository : Repository<Book>, IBookRepository
     {

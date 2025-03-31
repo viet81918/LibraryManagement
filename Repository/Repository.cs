@@ -1,7 +1,7 @@
 ﻿using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 
-namespace GalleryRepositories
+namespace Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {

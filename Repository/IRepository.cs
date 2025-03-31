@@ -1,4 +1,4 @@
-﻿namespace GalleryRepositories
+﻿namespace Repository
 {
     public interface IRepository<T> where T : class
     {

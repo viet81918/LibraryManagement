@@ -1,8 +1,8 @@
 using BusinessObject;
 using DataAccessObjects;
-using GalleryRepositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Repository;
 
 namespace LibraryManagement
 {

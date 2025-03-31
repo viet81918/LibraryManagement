@@ -1,6 +1,6 @@
 ﻿using BusinessObject;
-using GalleryRepositories;
 using Microsoft.EntityFrameworkCore;
+using Repository;
 
 namespace DataAccessObjects
 {
