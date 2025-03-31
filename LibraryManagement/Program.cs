@@ -1,3 +1,9 @@
+using BusinessObject;
+using DataAccessObjects;
+using GalleryRepositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+
 namespace LibraryManagement
 {
     public class Program
@@ -6,6 +12,22 @@ namespace LibraryManagement
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<MyLibraryContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnenction")));
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Auth/Login";
+                    options.AccessDeniedPath = "/Auth/AccessDenied";
+                });
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+
+            builder.Services.AddScoped<UserDAO>();
+            builder.Services.AddScoped<BookDAO>();
+
+            builder.Services.AddHttpContextAccessor();
             // Add services to the container.
             builder.Services.AddRazorPages();
 
@@ -24,7 +46,13 @@ namespace LibraryManagement
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapGet("/", (context) =>
+            {
+                context.Response.Redirect("/Auth/Login");
+                return Task.CompletedTask;
+            });
 
             app.MapRazorPages();
 

@@ -1,10 +1,26 @@
 ﻿using BusinessObject;
+using GalleryRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessObjects
 {
-    class UserDAO
+    public class UserDAO
     {
+        private readonly IUserRepository _userRepository;
+        public UserDAO(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+        public User FindByEmail(string email) => _userRepository.FindByEmail(email);
+        public bool ValidateUser(string emaill, string password)
+        {
+            var user = FindByEmail(emaill);
+            if (user == null)
+            {
+                return false;
+            }
+            return user.Password == password;
+        }
         public static List<User> GetUsers()
         {
             using var context = new MyLibraryContext();
