@@ -1,13 +1,13 @@
-﻿using GalleryBusiness.Models;
+﻿using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 
 namespace GalleryRepositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        protected readonly Sp25Prn222Pe2Context _context;
+        protected readonly MyLibraryContext _context;
         protected readonly DbSet<T> _dbSet;
-        public Repository(Sp25Prn222Pe2Context context)
+        public Repository(MyLibraryContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
